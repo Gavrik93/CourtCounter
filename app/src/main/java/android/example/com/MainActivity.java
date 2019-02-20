@@ -7,15 +7,25 @@ import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
     }
 
-    int scoreTeamA = 0;
-    int scoreTeamB = 0;
 
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        scoreTeamA = savedInstanceState.getInt("TeamA");
+        scoreTeamB = savedInstanceState.getInt("TeamB");
+        setContentView(R.layout.activity_main);
+    }
+
+
+    int scoreTeamA;
+    int scoreTeamB;
     /**
      * Increase the score for Team A by 1 point.
      */
@@ -39,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
         scoreTeamA = scoreTeamA + 3;
         displayForTeamA(scoreTeamA);
     }
+
     /**
      * Increase the score for Team B by 1 point.
      */
@@ -63,13 +74,15 @@ public class MainActivity extends AppCompatActivity {
         displayForTeamB(scoreTeamB);
     }
 
-    public  void resetScore (View v) {
+    public void resetScore(View v) {
         scoreTeamA = 0;
         scoreTeamB = 0;
         displayForTeamA(scoreTeamA);
         displayForTeamB(scoreTeamB);
 
     }
+
+
     /**
      * Displays the given score for Team A.
      */
@@ -81,5 +94,12 @@ public class MainActivity extends AppCompatActivity {
     public void displayForTeamB(int score) {
         TextView scoreView = (TextView) findViewById(R.id.team_b_score);
         scoreView.setText(String.valueOf(score));
+    }
+
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt("TeamA", scoreTeamA);
+        outState.putInt("TeamB", scoreTeamB);
+        setContentView(R.layout.activity_main);
     }
 }
