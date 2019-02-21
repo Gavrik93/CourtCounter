@@ -1,7 +1,9 @@
 package android.example.com;
 
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -15,6 +17,15 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
     }
 
+    public void onConfigurationChanged(Configuration newConfig){
+        if(newConfig.orientation==Configuration.ORIENTATION_LANDSCAPE){
+
+            Log.e("On Config Change","LANDSCAPE");
+        }else{
+
+            Log.e("On Config Change","PORTRAIT");
+        }
+    }
 
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
